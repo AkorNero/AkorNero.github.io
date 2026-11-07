@@ -1,0 +1,5 @@
+.impeccable/
+.terraform/
+*:Zone.Identifier
+.env
+my_photos

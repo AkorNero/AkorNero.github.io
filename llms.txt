@@ -1,0 +1,39 @@
+# Aravindkumar K S (Aravind)
+
+> AI/ML & Software Engineer in Cork, Ireland. Two years building production RAG and LLM systems on AWS at LTIMindtree, then an MSc in Mathematical Modelling and Machine Learning (First Class Honours) at University College Cork. AWS Certified Machine Learning Engineer – Associate. Stamp 1G, eligible to work in Ireland; open to AI Engineer, Forward Deployed Engineer and Software Engineer roles in Ireland (hybrid, onsite or remote within Ireland).
+
+Most of his work so far has been on retrieval systems and the tooling around LLMs: getting the right documents in front of the model, checking what comes out, and keeping it running.
+
+## Profile
+
+- [Portfolio](https://portfolio.aravind.click/): About, Experience, Projects & Research, Education & credentials, Contact
+- [CV (PDF)](https://portfolio.aravind.click/aravindkumar-ks-cv.pdf)
+- [LinkedIn](https://linkedin.com/in/aravindkumar-ks/): the best place to reach him
+- [GitHub](https://github.com/AkorNero)
+
+## Numbers from the work
+
+- ~30% less policy-document processing time: insurance RAG assistant at LTIMindtree
+- 95%+ extraction accuracy: 20+ vendor document formats into a Neo4j knowledge graph
+- ~3x inference throughput: self-hosted vLLM service vs a naive Hugging Face pipeline
+- 16% fewer parameters: MSc research, FC-KAN accuracy matched, 21–23% faster training
+
+## Projects & Research
+
+- [Agentic RAG & Conversational Knowledge Assistant](https://portfolio.aravind.click/#agentic-rag): an LLM-based response classification and filtering guardrail layer catches ungrounded or irrelevant responses before they're returned.
+- [LLM Evaluation Harness](https://portfolio.aravind.click/#llm-evaluation-harness): runs in CI as a regression gate via GitHub Actions, blocking merges on score drops and logging per-run traces to Langfuse.
+- [Optimized LLM Inference Serving](https://portfolio.aravind.click/#llm-inference-serving): ~3x throughput over a naive Hugging Face pipeline, ~50% less GPU memory and ~40% lower p95 latency.
+- [MSc Research: Wendland's CSRBF in Kolmogorov–Arnold Networks (KAN)](https://portfolio.aravind.click/#msc-research): compared across six baselines. Code: https://github.com/AkorNero/Wendland-s-CSRBF-KAN
+- [Serverless Observability on AWS](https://portfolio.aravind.click/#serverless-observability): fault injection reproduces failures and validates metrics and alerting end to end.
+- [Predictive Modeling for Customer Churn](https://portfolio.aravind.click/#customer-churn): 0.89 ROC-AUC; SHAP surfaced the top churn drivers.
+
+## Experience
+
+- AI/ML Engineering — Independent Projects & Professional Development, Cork, Ireland (Oct 2025 – Present)
+- Senior Consultant – Package Implementation (Insurance R&D), LTIMindtree (now LTM), Bengaluru, India (Oct 2022 – Aug 2024)
+- Graduate Engineer Trainee, LTIMindtree (now LTM), Bengaluru, India (Jul 2022 – Oct 2022)
+
+## Education
+
+- MSc Mathematical Modelling & Machine Learning, University College Cork (Sep 2024 – Sep 2025), First Class Honours (1.1)
+- BE Mechanical Engineering, Kumaraguru College of Technology, Coimbatore, India (Jul 2018 – Jun 2022), First Class with Distinction
