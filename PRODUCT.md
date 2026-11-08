@@ -40,15 +40,15 @@ Practical AI engineering, told plainly: what he built, how he checked it, and wh
 
 - Voice: calm, specific, precise, humble. Never hype or self-promotion. Avoid "passionate", "unglamorous", "trustworthy", "hold up", "obsessed" and similar.
 - Copy source: `Portfolio Story — tightened.md` is the only source of site copy, used verbatim. Its "Build notes" and "Things to fix before launch" lists are not site copy.
-- Fact source: the master CV (`cv.pdf`). The story file is written from it; if the two disagree, the CV wins and the story file is corrected first.
+- Fact source: the full master CV (`ref/cv.pdf`). The story file is written from it; if the two disagree, the CV wins and the story file is corrected first.
 
 ## Evidence on Hand
 
-- Copy: `Portfolio Story — tightened.md`, written from the master CV `cv.pdf`.
+- Copy: `Portfolio Story — tightened.md`, written from the full master CV `ref/cv.pdf`.
 - Photos: `images/aravind.jpg` (hero strips) and `images/aravind-casual.jpg` (About).
-- Public repo: https://github.com/AkorNero/Wendland-s-CSRBF-KAN (the MSc research). The other five projects have no public repo yet; do not invent links.
+- Public repo: https://github.com/AkorNero/Wendland-s-CSRBF-KAN (the MSc research). The other five projects have no public repo yet; do not invent links. Their "Repo" links go to the GitHub button in Contact (`#contact-github`), which takes focus with its ring showing.
 - The Agentic RAG result has no measured number yet; it stands without one until a real figure is supplied. Never show a placeholder on the site.
-- CV: `cv.pdf` in the repo root is the master. The site links a published copy, `aravindkumar-ks-cv.pdf`, with PDF title metadata; regenerate it whenever `cv.pdf` changes.
+- CV: `ref/cv.pdf` is the full master, and the site's facts come from it. The site links `aravindkumar-ks-cv.pdf`, a separate condensed 2-page CV with PDF title metadata; it leaves out some details the site still shows (two projects, awards, volunteering, some bullets).
 - Do not fabricate numbers, logos, quotes, testimonials or skills.
 
 ## Product Principles
@@ -64,4 +64,4 @@ WCAG 2.1 AA contrast, keyboard-reachable controls with visible focus, reduced-mo
 
 ## Search and AI discovery
 
-Canonical URL: https://portfolio.aravind.click/. The page head carries Open Graph/Twitter tags (preview image `images/og.jpg`, 1200×630) and JSON-LD (`ProfilePage` → `Person`), whose facts must match the page. `robots.txt` allows all crawlers, including AI assistants' crawlers; `sitemap.xml` lists the page and the CV; `llms.txt` is a plain summary written only from site copy. Each project has its own anchor (`#agentic-rag`, `#llm-evaluation-harness`, `#llm-inference-serving`, `#msc-research`, `#serverless-observability`, `#customer-churn`). When copy changes, update `llms.txt`, the JSON-LD and the meta description with it.
+Canonical URL: https://akornero.github.io/. The page head carries Open Graph/Twitter tags (preview image `images/og.jpg`, 1200×630) and JSON-LD (`ProfilePage` → `Person`), whose facts must match the page. `robots.txt` allows all crawlers, including AI assistants' crawlers; `sitemap.xml` lists the page and the CV; `llms.txt` is a plain summary written only from site copy. Each project has its own anchor (`#agentic-rag`, `#llm-evaluation-harness`, `#llm-inference-serving`, `#msc-research`, `#serverless-observability`, `#customer-churn`). When copy changes, update `llms.txt`, the JSON-LD and the meta description with it.

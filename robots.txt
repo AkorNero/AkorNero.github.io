@@ -20,4 +20,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://portfolio.aravind.click/sitemap.xml
+Sitemap: https://akornero.github.io/sitemap.xml

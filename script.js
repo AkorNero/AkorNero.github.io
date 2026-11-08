@@ -209,3 +209,25 @@ document.querySelectorAll('.tiles').forEach(function (list) {
   }, { rootMargin: '-45% 0px -50% 0px' });
   document.querySelectorAll('main section[id]').forEach(function (s) { io.observe(s); });
 })();
+
+// A link to a control (each project's Repo link points at the GitHub button in Contact)
+// shows that control's section and puts focus on it, with the ring visible even after
+// a mouse click. motion.js does the same with a glide when it runs.
+(function () {
+  function mark(el) {
+    el.classList.add('focus-mark');
+    el.addEventListener('blur', function () { el.classList.remove('focus-mark'); }, { once: true });
+  }
+  window.__markFocus = mark;
+  document.addEventListener('click', function (e) {
+    if (document.documentElement.classList.contains('motion')) return;
+    var a = e.target.closest('a[href^="#"]');
+    var t = a && a.getAttribute('href').length > 1 ? document.getElementById(a.getAttribute('href').slice(1)) : null;
+    if (!t || !t.matches('a[href], button')) return;
+    e.preventDefault();
+    (t.closest('section') || t).scrollIntoView({ block: 'start' });
+    history.pushState(null, '', '#' + t.id);
+    t.focus({ preventScroll: true });
+    mark(t);
+  });
+})();

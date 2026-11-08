@@ -6,8 +6,8 @@ Most of his work so far has been on retrieval systems and the tooling around LLM
 
 ## Profile
 
-- [Portfolio](https://portfolio.aravind.click/): About, Experience, Projects & Research, Education & credentials, Contact
-- [CV (PDF)](https://portfolio.aravind.click/aravindkumar-ks-cv.pdf)
+- [Portfolio](https://akornero.github.io/): About, Experience, Projects & Research, Education & credentials, Contact
+- [CV (PDF)](https://akornero.github.io/aravindkumar-ks-cv.pdf)
 - [LinkedIn](https://linkedin.com/in/aravindkumar-ks/): the best place to reach him
 - [GitHub](https://github.com/AkorNero)
 
@@ -20,12 +20,12 @@ Most of his work so far has been on retrieval systems and the tooling around LLM
 
 ## Projects & Research
 
-- [Agentic RAG & Conversational Knowledge Assistant](https://portfolio.aravind.click/#agentic-rag): an LLM-based response classification and filtering guardrail layer catches ungrounded or irrelevant responses before they're returned.
-- [LLM Evaluation Harness](https://portfolio.aravind.click/#llm-evaluation-harness): runs in CI as a regression gate via GitHub Actions, blocking merges on score drops and logging per-run traces to Langfuse.
-- [Optimized LLM Inference Serving](https://portfolio.aravind.click/#llm-inference-serving): ~3x throughput over a naive Hugging Face pipeline, ~50% less GPU memory and ~40% lower p95 latency.
-- [MSc Research: Wendland's CSRBF in Kolmogorov–Arnold Networks (KAN)](https://portfolio.aravind.click/#msc-research): compared across six baselines. Code: https://github.com/AkorNero/Wendland-s-CSRBF-KAN
-- [Serverless Observability on AWS](https://portfolio.aravind.click/#serverless-observability): fault injection reproduces failures and validates metrics and alerting end to end.
-- [Predictive Modeling for Customer Churn](https://portfolio.aravind.click/#customer-churn): 0.89 ROC-AUC; SHAP surfaced the top churn drivers.
+- [Agentic RAG & Conversational Knowledge Assistant](https://akornero.github.io/#agentic-rag): an LLM-based response classification and filtering guardrail layer catches ungrounded or irrelevant responses before they're returned.
+- [LLM Evaluation Harness](https://akornero.github.io/#llm-evaluation-harness): runs in CI as a regression gate via GitHub Actions, blocking merges on score drops and logging per-run traces to Langfuse.
+- [Optimized LLM Inference Serving](https://akornero.github.io/#llm-inference-serving): ~3x throughput over a naive Hugging Face pipeline, ~50% less GPU memory and ~40% lower p95 latency.
+- [MSc Research: Wendland's CSRBF in Kolmogorov–Arnold Networks (KAN)](https://akornero.github.io/#msc-research): compared across six baselines. Code: https://github.com/AkorNero/Wendland-s-CSRBF-KAN
+- [Serverless Observability on AWS](https://akornero.github.io/#serverless-observability): fault injection reproduces failures and validates metrics and alerting end to end.
+- [Predictive Modeling for Customer Churn](https://akornero.github.io/#customer-churn): 0.89 ROC-AUC; SHAP surfaced the top churn drivers.
 
 ## Experience
 

@@ -39,8 +39,10 @@
   function playHero(rise) {
     gsap.set(title, { autoAlpha: 1 });
     if (!rise) return;
+    // aria: 'none' leaves the words as they are for screen readers; the default puts an
+    // aria-label on the <p>, which ARIA does not allow on a paragraph.
     SplitText.create(title, {
-      type: 'lines', mask: 'lines', autoSplit: true,
+      type: 'lines', mask: 'lines', autoSplit: true, aria: 'none', reduceWhiteSpace: false, // keeps the &nbsp; in "I build"
       onSplit: function (self) {
         return gsap.from(self.lines, { yPercent: 105, duration: .9, stagger: .09, ease: 'power3.out' });
       }
@@ -61,11 +63,15 @@
     var target = id ? document.getElementById(id) : null;
     if (!target) return;
     e.preventDefault();
-    lenis.scrollTo(target, { duration: 1.2 });
+    // A link to a control (a project's Repo link to the GitHub button) glides to the
+    // control's whole section and focuses the control itself, ring showing.
+    var control = target.matches('a[href], button');
+    lenis.scrollTo(control ? (target.closest('section') || target) : target, { duration: 1.2 });
     history.pushState(null, '', '#' + id);
     // Keyboard and screen-reader users continue from the section they jumped to.
-    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    if (!control && !target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
     target.focus({ preventScroll: true });
+    if (control && window.__markFocus) window.__markFocus(target);
   });
 
   // The axis grows with the reader: its tip tracks 60% down the viewport.
@@ -148,7 +154,7 @@
     var close = document.querySelector('#contact .close');
     if (!close) return;
     SplitText.create(close, {
-      type: 'lines,words', mask: 'lines', autoSplit: true,
+      type: 'lines,words', mask: 'lines', autoSplit: true, aria: 'none',
       onSplit: function (self) {
         return gsap.from(self.words, { yPercent: 110, duration: 1.1, stagger: .03, ease: HEAVY, scrollTrigger: once(close, 'top 88%') });
       }

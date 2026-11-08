@@ -13,3 +13,7 @@ crash.log
 *.tfvars
 # The state bucket's name contains the AWS account ID; backend.hcl.example shows the format.
 IaC/backend.hcl
+
+# Private reference files: the full CV has contact details, and the Lighthouse report is a working note.
+ref/cv.pdf
+ref/lighthouse-report.pdf

@@ -11,6 +11,8 @@ resource "aws_iam_openid_connect_provider" "github" {
 }
 
 # Only workflow runs on the main branch of var.github_repository can assume this role.
+# GitHub puts numeric IDs in the subject (repo:AkorNero@<owner id>/portfolio@<repo id>:...),
+# so a deleted and recreated repo with the same name cannot reuse this role.
 data "aws_iam_policy_document" "github_deploy_trust" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]

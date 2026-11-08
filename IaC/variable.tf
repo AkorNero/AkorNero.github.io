@@ -33,6 +33,6 @@ variable "site_bucket_name" {
 }
 
 variable "github_repository" {
-  description = "GitHub repository allowed to deploy, as owner/name, e.g. AkorNero/portfolio"
+  description = "GitHub repository allowed to deploy, as GitHub writes it in the OIDC subject: owner@owner_id/name@repo_id"
   type        = string
 }
