@@ -8,10 +8,11 @@ terraform {
     }
   }
 
-  # MANUAL: bucket must already exist, and its name/region must match your state bucket.
-  # Backend blocks cannot use variables.
+  # MANUAL: the state bucket must already exist. Its name (which contains the AWS
+  # account ID) lives in backend.hcl, kept out of git:
+  #   terraform init -backend-config=backend.hcl
+  # backend.hcl.example shows the format. Backend blocks cannot use variables.
   backend "s3" {
-    bucket       = ""
     key          = "portfolio/terraform.tfstate"
     region       = "eu-west-1"
     encrypt      = true
@@ -21,12 +22,16 @@ terraform {
 
 provider "aws" {
   region = var.aws_region
+  access_key = var.access_key
+  secret_key = var.secret_key
 }
 
 # CloudFront only accepts ACM certificates from us-east-1, whatever your main region is.
 provider "aws" {
   alias  = "us_east_1"
   region = "us-east-1"
+  access_key = var.access_key
+  secret_key = var.secret_key
 }
 
 locals {
@@ -42,7 +47,7 @@ locals {
 # ---------------------------------------------------------------------------
 
 resource "aws_s3_bucket" "site" {
-  bucket = "${var.site_bucket_name}-${data.aws_account.current.account_id}-${var.aws_region}"
+  bucket = "${var.site_bucket_name}-${data.aws_caller_identity.current.account_id}-${var.aws_region}"
 
   # PREFERENCE: set to true if you want `terraform destroy` to delete a non-empty bucket.
   force_destroy = false
@@ -117,7 +122,8 @@ resource "aws_cloudfront_origin_access_control" "site" {
 
 resource "aws_cloudfront_distribution" "site" {
   enabled             = true
-  is_ipv6_enabled     = false
+  is_ipv6_enabled     = true
+  http_version        = "http2and3"
   default_root_object = "index.html"
   aliases             = local.site_domains
 
@@ -137,22 +143,27 @@ resource "aws_cloudfront_distribution" "site" {
     cached_methods         = ["GET", "HEAD"]
     compress               = true
 
-    # Managed policy: CachingOptimized
-    cache_policy_id = data.aws_cloudfront_cache_policy.caching_optimized.id
+    # Managed policy: CachingOptimized. Files are cached for a day, so every deploy
+    # must invalidate "/*" (one path, inside the 1,000 free paths a month).
+    cache_policy_id            = data.aws_cloudfront_cache_policy.caching_optimized.id
+    response_headers_policy_id = data.aws_cloudfront_response_headers_policy.security_headers.id
   }
 
-  # PREFERENCE: this suits a single-page app (routes fall back to index.html).
-  # For a plain multi-page static site, point 404 at a real /404.html and keep response_code = 404.
+  # Each error keeps its real status code, so a mistyped URL is never served as a
+  # 200 page (a "soft 404" to Google). CloudFront may list the bucket (see data.tf),
+  # so a missing file arrives as 404, not 403.
   custom_error_response {
-    error_code         = 403
-    response_code      = 200
-    response_page_path = "/403.html"
+    error_code            = 403
+    response_code         = 403
+    response_page_path    = "/403.html"
+    error_caching_min_ttl = 60
   }
 
   custom_error_response {
-    error_code         = 404
-    response_code      = 200
-    response_page_path = "/404.html"
+    error_code            = 404
+    response_code         = 404
+    response_page_path    = "/404.html"
+    error_caching_min_ttl = 60
   }
 
   restrictions {
@@ -186,17 +197,17 @@ resource "aws_route53_record" "site_a" {
   }
 }
 
-# Remove this resource if you set is_ipv6_enabled = false above.
-# resource "aws_route53_record" "site_aaaa" {
-#   for_each = toset(local.site_domains)
+# IPv6 is on (is_ipv6_enabled above), so the name needs an AAAA record too.
+resource "aws_route53_record" "site_aaaa" {
+  for_each = toset(local.site_domains)
 
-#   zone_id = data.aws_route53_zone.site.zone_id
-#   name    = each.value
-#   type    = "AAAA"
+  zone_id = data.aws_route53_zone.site.zone_id
+  name    = each.value
+  type    = "AAAA"
 
-#   alias {
-#     name                   = aws_cloudfront_distribution.site.domain_name
-#     zone_id                = aws_cloudfront_distribution.site.hosted_zone_id
-#     evaluate_target_health = false
-#   }
-# }
+  alias {
+    name                   = aws_cloudfront_distribution.site.domain_name
+    zone_id                = aws_cloudfront_distribution.site.hosted_zone_id
+    evaluate_target_health = false
+  }
+}

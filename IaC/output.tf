@@ -17,3 +17,8 @@ output "site_url" {
   description = "Public URL of the site"
   value       = "https://${var.domain_name}"
 }
+
+output "github_deploy_role_arn" {
+  description = "Role the GitHub Actions deploy workflow assumes (AWS_ROLE_ARN secret)"
+  value       = aws_iam_role.github_deploy.arn
+}

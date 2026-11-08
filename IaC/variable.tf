@@ -4,20 +4,35 @@ variable "aws_region" {
   default     = "eu-west-1" # PREFERENCE: any region; CloudFront and ACM are handled separately.
 }
 
+variable "access_key" {
+  description = "AWS access key"
+  type        = string
+  sensitive   = true
+}
+
+variable "secret_key" {
+  description = "AWS secret key"
+  type        = string
+  sensitive   = true
+}
+
 variable "domain_name" {
   description = "Full hostname the site is served on, e.g. portfolio.example.com"
   type        = string
-  default     = "portfolio.aravind.click"
 }
 
 variable "hosted_zone_name" {
   description = "Route53 hosted zone that contains domain_name (the parent domain)"
   type        = string
-  default     = "aravind.click"
 }
 
 variable "site_bucket_name" {
   description = "Globally unique name for the S3 bucket holding the site"
   type        = string
   default     = "portfolio-site" # MANUAL: must be globally unique across all of AWS.
+}
+
+variable "github_repository" {
+  description = "GitHub repository allowed to deploy, as owner/name, e.g. AkorNero/portfolio"
+  type        = string
 }

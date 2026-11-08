@@ -1,0 +1,51 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [main]
+
+# A newer push waits for the running deploy instead of racing it.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  id-token: write # lets the job ask GitHub for the OIDC token AWS trusts
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      # Only these files are published. Everything else in the repo (cv.pdf master,
+      # PRODUCT.md, IaC/, ref/, .impeccable/) stays out of the bucket.
+      - name: Collect site files
+        run: |
+          mkdir site
+          cp -r index.html 404.html 403.html style.css script.js motion.js \
+            favicon.ico favicon.svg apple-touch-icon.png \
+            robots.txt sitemap.xml llms.txt aravindkumar-ks-cv.pdf \
+            fonts images vendor site/
+
+      - uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # The CLI's type guessing can miss AVIF and WOFF2, so those go up with explicit types first.
+      # The final sync uploads the rest and deletes anything no longer in the site.
+      - name: Upload to S3
+        env:
+          BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          aws s3 sync site/ "s3://$BUCKET" --exclude "*" --include "*.avif" --content-type image/avif
+          aws s3 sync site/ "s3://$BUCKET" --exclude "*" --include "*.woff2" --content-type font/woff2
+          aws s3 sync site/ "s3://$BUCKET" --exclude "*.avif" --exclude "*.woff2" --delete
+
+      # Runs after the upload, so the cache never refills with old files.
+      - name: Invalidate CloudFront cache
+        env:
+          DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"
